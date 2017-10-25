@@ -1667,6 +1667,13 @@ static void AudioFileStreamPacketsProc(void* clientData, UInt32 numberBytes, UIn
     [self processRunloop];
 }
 
+-(void)dataSource:(STKDataSource *)dataSource didReadStreamMetadata:(NSDictionary *)metadata
+{
+    if ([self.delegate respondsToSelector:@selector(audioPlayer:didReadStreamMetadata:)])
+        [self.delegate audioPlayer:self didReadStreamMetadata:metadata];
+}
+
+
 -(void) pause
 {
     pthread_mutex_lock(&playerMutex);
